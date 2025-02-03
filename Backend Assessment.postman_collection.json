@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "24acb38a-7616-44bb-ac82-6585583b6a8f",
+		"name": "Backend Assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41630050"
+	},
+	"item": [
+		{
+			"name": "Subscription Api",
+			"item": [
+				{
+					"name": "Device Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uid\": \"user1234512\",\n    \"app_id\": \"app_345\",\n    \"language\": \"en\",\n    \"operating_system\": \"ios\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{subscription-url}}/register",
+							"host": [
+								"{{subscription-url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJMYXJhdmVsIiwiaWF0IjoxNzM4NTcxMDAzLCJleHAiOjE3NDM3NTUwMDMsImRhdGEiOnsidWlkIjoidXNlcjEyMzQ1MTIiLCJhcHBfaWQiOiJhcHBfMzQ1In19.Q0BLpvs9kN5hTaVA0-h6mmZSUVRdjZoL0Mk2krTPczo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"receipt\": \"asqweqwed13\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{subscription-url}}/payment/purchase",
+							"host": [
+								"{{subscription-url}}"
+							],
+							"path": [
+								"payment",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Subscription",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJMYXJhdmVsIiwiaWF0IjoxNzM4NTcxMDAzLCJleHAiOjE3NDM3NTUwMDMsImRhdGEiOnsidWlkIjoidXNlcjEyMzQ1MTIiLCJhcHBfaWQiOiJhcHBfMzQ1In19.Q0BLpvs9kN5hTaVA0-h6mmZSUVRdjZoL0Mk2krTPczo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{subscription-url}}/check-subscription",
+							"host": [
+								"{{subscription-url}}"
+							],
+							"path": [
+								"check-subscription"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mock Api",
+			"item": [
+				{
+					"name": "Google Verify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"receipt\":\"asdasdasdasd12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mock-url}}/google/verify",
+							"host": [
+								"{{mock-url}}"
+							],
+							"path": [
+								"google",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Purchase",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"receipt\":\"asdasdasdasd12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mock-url}}/google/purchase",
+							"host": [
+								"{{mock-url}}"
+							],
+							"path": [
+								"google",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IOS Purchase",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"receipt\":\"asdasdasdasd13\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/ios/purchase",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ios",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IOS Verify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"receipt\":\"asdasdasdasd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mock-url}}/ios/verify",
+							"host": [
+								"{{mock-url}}"
+							],
+							"path": [
+								"ios",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Callback",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mock-url}}/callback",
+							"host": [
+								"{{mock-url}}"
+							],
+							"path": [
+								"callback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

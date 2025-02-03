@@ -1,0 +1,50 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Third Party Services
+    |--------------------------------------------------------------------------
+    |
+    | This file is for storing the credentials for third party services such
+    | as Mailgun, Postmark, AWS and more. This file provides the de facto
+    | location for this type of information, allowing packages to have
+    | a conventional file to locate the various service credentials.
+    |
+    */
+
+    'postmark' => [
+        'token' => env('POSTMARK_TOKEN'),
+    ],
+
+    'ses' => [
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+    ],
+
+    'resend' => [
+        'key' => env('RESEND_KEY'),
+    ],
+
+    'slack' => [
+        'notifications' => [
+            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
+            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
+        ],
+    ],
+
+    'google' => [
+        'api_url' => env('GOOGLE_API_BASE_URL'),
+        'verify_url' => env('GOOGLE_API_VERIFY_URL'),
+        'purchase_url' => env('GOOGLE_API_PURCHASE_URL'),
+    ],
+
+    'ios' => [
+        'api_url' => env('IOS_API_BASE_URL'),
+        'verify_url' => env('IOS_API_VERIFY_URL'),
+        'purchase_url' => env('IOS_API_PURCHASE_URL'),
+    ],
+
+];

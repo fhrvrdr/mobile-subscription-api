@@ -1,0 +1,116 @@
+services:
+    subscription-api:
+        container_name: subscription-api
+        build:
+            context: './subscription-management-api/docker/8.4'
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP:-1000}'
+        image: 'subscription-api/app'
+        env_file:
+            - ./subscription-management-api/.env
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '80:80'
+            - '5173:5173'
+        environment:
+            WWWUSER: '${WWWUSER:-1000}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: 'debug'
+            XDEBUG_CONFIG: 'client_host=host.docker.internal'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+        volumes:
+            - './subscription-management-api:/var/www/html'
+        networks:
+            - subscription-network
+        depends_on:
+            - mysql
+            - redis
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        env_file:
+            - ./subscription-management-api/.env
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: 'laravel'
+            MYSQL_USER: 'sail'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'subscription-mysql:/var/lib/mysql'
+            - './subscription-management-api/docker/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        networks:
+            - subscription-network
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-ppassword'
+            retries: 3
+            timeout: 5s
+    redis:
+        image: 'redis:alpine'
+        env_file:
+            - ./subscription-management-api/.env
+        ports:
+            - '6379:6379'
+        volumes:
+            - 'subscription-redis:/data'
+        networks:
+            - subscription-network
+        healthcheck:
+            test:
+                - CMD
+                - redis-cli
+                - ping
+            retries: 3
+            timeout: 5s
+    meilisearch:
+        image: getmeili/meilisearch:latest
+        env_file:
+            - ./subscription-management-api/.env
+        ports:
+            - '7700:7700'
+        volumes:
+            - 'subscription-meilisearch:/meili_data'
+        environment:
+                MEILI_NO_ANALYTICS: 'false'
+        networks:
+            - subscription-network
+        healthcheck:
+            test:
+                - CMD
+                - wget
+                - --no-verbose
+                - --spider
+                - http://127.0.0.1:7700/health
+            retries: 3
+            timeout: 5s
+    mock-api:
+        build:
+            context: './mock-api'
+            dockerfile: Dockerfile
+        image: 'subscription-mock-api/app'
+        ports:
+            - '3000:3000'
+        environment:
+            GO_ENV: 'development'
+        volumes:
+            - './mock-api:/app'
+        networks:
+            - subscription-network
+networks:
+    subscription-network:
+        driver: bridge
+volumes:
+    subscription-mysql:
+        driver: local
+    subscription-redis:
+        driver: local
+    subscription-meilisearch:
+        driver: local
