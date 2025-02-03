@@ -41,7 +41,7 @@ final class Subscription extends Model
     protected static function boot()
     {
         parent::boot();
-        static::creating(function (Subscription $subscription) {
+        self::creating(function (Subscription $subscription) {
             $subscription->updated_at = null;
         });
     }

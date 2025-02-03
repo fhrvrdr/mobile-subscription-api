@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Enum\SubscriptionStatus;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class GenerateSubscriptionReport extends Command
 {
@@ -18,7 +18,7 @@ class GenerateSubscriptionReport extends Command
         $date = Carbon::today('America/Chicago')->toDateString();
 
         $startedSubscriptions = DB::table('subscriptions')
-            ->whereDate('created_at', '=',$date)
+            ->whereDate('created_at', '=', $date)
             ->where('status', SubscriptionStatus::ACTIVE)
             ->count();
 

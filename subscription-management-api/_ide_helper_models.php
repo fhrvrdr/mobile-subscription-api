@@ -15,9 +15,21 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $app_id
+ * @property array<array-key, mixed> $provider_credentials
+ * @property string $callback_url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Application newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Application newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Application query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Application whereAppId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Application whereCallbackUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Application whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Application whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Application whereProviderCredentials($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Application whereUpdatedAt($value)
  */
 	final class Application extends \Eloquent {}
 }

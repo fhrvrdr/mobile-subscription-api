@@ -20,7 +20,7 @@ class ApplicationFactory extends Factory
             'app_id' => 'app_345',
             'provider_credentials' => json_encode($this->providerCredentials()),
             'callback_url' => 'mock-api/callback',
-         ];
+        ];
     }
 
     public function providerCredentials(): array
